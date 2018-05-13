@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -115,5 +116,24 @@ public class DB {
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ArrayList<User> getAllUsers() {
+        String sql = "select * from users";
+        ArrayList<User> users = null;
+        try {
+            ResultSet rs = createStatement.executeQuery(sql);
+            users = new ArrayList<>();
+            
+            while(rs.next()) {
+                User user = new User(rs.getString("name"), rs.getString("address"));
+                users.add(user);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van az userek lekerdezesekor");
+            System.out.println(""+ex);
+        }
+        
+        return users;
     }
 }

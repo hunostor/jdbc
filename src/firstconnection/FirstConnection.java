@@ -18,7 +18,8 @@ public class FirstConnection {
         DB db = new DB();
         //db.addUser("Attila", "Pécs");
         //db.showAllUsers();
-        db.showUsersMeta();
+        //db.showUsersMeta();
+        System.out.println(db.getAllUsers());
     }
     
 }
