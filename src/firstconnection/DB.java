@@ -8,6 +8,7 @@ package firstconnection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -70,7 +71,13 @@ public class DB {
     
     public void addUser(String name, String address) {
         try {
-            this.createStatement.execute("insert into users values ('Gyula', 'Budapest'), ('Mari', 'Budapest')");
+//            String sql = "insert into users values ('"+name+"', '"+address+"')";
+//            this.createStatement.execute(sql);
+            String sql = "insert into users values (?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, name);
+            pstmt.setString(2, address);
+            pstmt.execute();
         } catch (SQLException ex) {
             System.out.println("Valami baj van a user hozzaadasakkor");
             System.out.println(""+ex);
